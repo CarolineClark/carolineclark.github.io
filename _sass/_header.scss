@@ -1,0 +1,42 @@
+:root {
+    --color-test: rgba(0,0,0,0.25);
+    --color-main: #72a89b;
+    --color-anim-background: white;
+    --color-menu: #72a89b;
+    --color-header: #4d756d;
+    --color-header-text: #ffffff;
+    --color-selected-text: #ceefdd;
+}
+
+#liney-twitter-button {
+    position: absolute;
+    margin: 10px 0px 0px 10px;
+}
+
+.menu {
+    background-color: var(--color-menu);
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    float:left;
+}
+
+.header {
+    width: 100vw;
+    background-color: var(--color-header);
+    color: var(--color-header-text);
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.header-section {
+    padding: 11px 50px 11px 50px;
+    font-size: 25px;
+    cursor: pointer;
+}

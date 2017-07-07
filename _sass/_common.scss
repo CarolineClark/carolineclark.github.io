@@ -1,0 +1,31 @@
+html {
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: "Josefin Sans";
+    background-color: var(--color-main);
+    margin: 0;
+}
+
+.main-body {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    margin: 0px;
+    /*background: var(--color-test);*/
+}
+
+.liney-button {
+    background-color: white;
+    border-style: none;
+}
+
+.link:hover {
+    cursor: pointer;
+}
+
+h2 {
+    text-decoration:none
+}
