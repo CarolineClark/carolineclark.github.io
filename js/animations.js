@@ -3,3 +3,8 @@ function changeAnimation(newClass) {
     mainAnim.className = "";
     mainAnim.classList.add(newClass);
 }
+
+function changeIllustration(imgSrc) {
+    var mainAnim = document.getElementById('main-illustration');
+    mainAnim.src = imgSrc;
+}

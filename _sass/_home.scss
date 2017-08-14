@@ -1,0 +1,30 @@
+.home-label {
+    font-family: "Josefin Sans";
+    font-size: 16pt;
+    margin: 20px 0px 50px 0px;
+}
+
+.home-page-title, .home-page-description, .home-label {
+    text-align:center;
+}
+
+.home-button-wrapper {
+    width: 100vw;
+    margin: auto;
+}
+
+.home-button {
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+    margin: 0 auto;
+    display: block;
+}
+
+.home-button:hover {
+    cursor: pointer;
+}
+
+.home-button img {
+    max-width: 50vw;
+}

@@ -4,8 +4,13 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+Hi, I'm Caroline Clark, I'm a Software Developer. Companies have paid me to work on Java and Python codebases. For myself, I have worked on Unity, and am doing an Android nanodegree with Udacity.
 
-You can find the source code for the Jekyll new theme at: [github.com/jglovier/jekyll-new](https://github.com/jglovier/jekyll-new)
+Software feels like the easiest way to make something come to life. Nowadays, we have so much memory even in the cheapest computers, and it has never been easier to code. I don't think it has ever been able to create something with so much potental, while investing so little.
 
-You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+I like to learn new things, and am open to opportunities where developing employees is highly prioritised.
+
+Get in touch if you think we could work together.
+
+
+
