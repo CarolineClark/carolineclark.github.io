@@ -1,6 +1,20 @@
 $fade_in_duration: 0.7s;
 $hover-over-color: #4d756d;
 
+$desktop-button-width: 45vw;
+$desktop-button-height: 30vw;
+
+$mobile-button-width: 80vw;
+$mobile-button-height: 50vw;
+
+@mixin swellImageToFit($width, $height) {
+    min-width: $width;
+    min-height: $height;
+    display: block;
+    height: auto;
+    width: auto;
+}
+
 .home-page-title, .home-page-description, .home-label, .home-mobile-label {
     font-family: $base-font-family;
     text-align:center;
@@ -8,12 +22,11 @@ $hover-over-color: #4d756d;
 
 .home-button {
     display: flex;
-    background-color: transparent;
+    background-color: white;
     box-shadow: none;
     border: none;
     margin: 2vw auto;
     display: block;
-    width: 45vw;
     padding: 0;
     position: relative;
     border-radius: 5px;
@@ -23,13 +36,18 @@ $hover-over-color: #4d756d;
     overflow: hidden;
 }
 
+.home-button {
+    width: $desktop-button-width;
+    height: $desktop-button-height;
+}
+
 .home-button img {
-    max-height: 100%;
+    @include swellImageToFit($desktop-button-width, $desktop-button-height);
 }
 
 .animation-wrapper, .animationHome {
     background-color: white;
-    position: absolute;
+    // position: absolute;
     top: 0;
     left: 0;
     right: 0;
@@ -73,7 +91,12 @@ $hover-over-color: #4d756d;
 
 @media screen and (max-width: 480px) and (max-aspect-ratio: 1/1) {
     .home-button {
-        width: 90vw;
+        width: $mobile-button-width;
+        height: $mobile-button-height;
+    }
+
+    .home-button img {
+        @include swellImageToFit($mobile-button-width, $mobile-button-height);
     }
 
     .home-mobile-label {
