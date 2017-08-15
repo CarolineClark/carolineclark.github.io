@@ -180,7 +180,7 @@
 
 .post-meta {
     font-size: $small-font-size;
-    color: $grey-color;
+    color: var(--color-header);
 }
 
 .post-link {
@@ -201,6 +201,7 @@
     font-size: 40px;
     letter-spacing: -1px;
     line-height: 1;
+    text-align: center;
 
     @include media-query($on-laptop) {
         font-size: 36px;

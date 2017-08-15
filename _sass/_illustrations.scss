@@ -1,14 +1,25 @@
+
 .illustration_header {
     display: none;
 }
 
+.illustration-wrapper {
+    margin: 0 auto;
+}
+
+.illustration-preview {
+    display: block;
+    width: 70vw;
+    margin: 0 auto;
+}
+
 @media screen and (max-width: 480px) and (max-aspect-ratio: 1/1) {
     .illustration_header {
-        display: visible;
+        display: flex;
         font-size: 16px;
     }
 
     .illustration-preview {
-        width: 90vw;
+        max-width: 90vw;
     }
 }

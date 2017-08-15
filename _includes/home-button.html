@@ -1,6 +1,16 @@
-<!-- <div class=home-button-wrapper> -->
-    <button class="home-button" onclick="location.href='/{{include.label}}/'">
-        <img src="{{include.imgSrc}}"/>
+
+<button class="home-button" onclick="location.href='/{{include.label}}/'">
+    <div class="home-overlay">
         <div class="home-label">{{include.label}}</div>
-    </button>
-<!-- </div> -->
+    </div>
+    {% if include.animationClass %}
+        <div class="animation-wrapper">
+            <div class="{{include.animationClass}} animationHome"></div>
+        </div>
+    {% endif %}
+    {% if include.imgSrc %}
+          <img src="{{include.imgSrc}}"/>
+    {% endif %}
+</button>
+<div class="home-mobile-label">{{include.label}}</div>
+
