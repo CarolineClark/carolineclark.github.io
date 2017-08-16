@@ -1,8 +1,10 @@
 $footer_fade_duration: 0.4s;
 $desktop-icon-size: 5vw;
 $desktop-container-size: 8vw;
-$mobile-icon-size: 15vw;
-$mobile-container-size: 15vw;
+$desktop-border-radius: 4vw;
+$mobile-icon-size: 13vw;
+$mobile-container-size: 20vw;
+$mobile-border-radius: 10vw;
 
 
 .footer {
@@ -25,7 +27,7 @@ $mobile-container-size: 15vw;
     background-color: transparent;
     -webkit-transition: background-color $footer_fade_duration;
     transition: background-color $footer_fade_duration;
-    border-radius: 4vw;
+    border-radius: $desktop-border-radius;
     width: $desktop-container-size;
     height: $desktop-container-size;
     display: flex;
@@ -35,6 +37,7 @@ $mobile-container-size: 15vw;
         width: $mobile-container-size;
         height: $mobile-container-size;
         margin: 0 1.5vw;
+        border-radius: $mobile-border-radius;
     }
 }
 
@@ -48,9 +51,9 @@ $mobile-container-size: 15vw;
     margin: auto;
 
     @include media-query($on-palm) {
-        width: $mobile-container-size;
-        height: $mobile-container-size;
-        margin: 0 1.5vw;
+        width: $mobile-icon-size;
+        height: $mobile-icon-size;
+        margin: auto;
     }
 }
 
