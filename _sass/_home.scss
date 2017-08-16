@@ -41,6 +41,10 @@ $mobile-button-height: 50vw;
     height: $desktop-button-height;
 }
 
+.home-button:hover {
+    cursor: pointer;
+}
+
 .home-button img {
     @include swellImageToFit($desktop-button-width, $desktop-button-height);
 }

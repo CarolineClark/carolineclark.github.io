@@ -1,10 +1,16 @@
 .footer {
     width: 100vw;
+    height: 10vw;
     display: flex;
     flex-direction: row;
-    margin: 0px;
     justify-content: center;
     align-items: center;
+    margin: 0;
+    padding: 1vw 0 2.5vw 0;
+
+    @include media-query($on-palm) {
+        padding: 0 0 9vw 0;
+    }
 }
 
 .footer-icon {
@@ -15,10 +21,16 @@
     @include media-query($on-palm) {
         width: 10vw;
         height: 10vw;
-        margin: 0 1.5vw 6vw 1.5vw;
+        margin: 0 1.5vw;
     }
 }
 
 .footer-icon svg {
     fill: #4d756d;
+    -webkit-transition: fill $fade_in_duration;
+    transition: fill $fade_in_duration;
+}
+
+.footer-icon:hover svg {
+    fill: #000;
 }
