@@ -15,8 +15,10 @@ $spacing-unit:     30px;
 
 $text-color:       #111;
 $background-color: #fdfdfd;
-//$brand-color:      #2a7ae2;
-$brand-color:      #2e4f3e;
+// $brand-color:      #2a7ae2;
+// $brand-color:      #2e4f3e;
+$brand-color: #4d756d;
+$link-color: #5a8d83;
 
 $grey-color:       #828282;
 $grey-color-light: lighten($grey-color, 40%);
@@ -27,7 +29,8 @@ $footer-logo-colour: #4d756d;
 $on-palm:          600px;
 $on-laptop:        900px;
 
-$color-menu: #72a89b;
+$color-menu: #add0c8;
+// $color-menu: #72a89b;
 $color-header: #4d756d;
 $color-header-text: #ffffff;
 $color-menu-border: #2d382c;

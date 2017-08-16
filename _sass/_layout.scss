@@ -165,7 +165,7 @@
  * Page content
  */
 .page-content {
-    padding: $spacing-unit 0;
+    padding: $spacing-unit 0 0 0;
 }
 
 .page-heading {
@@ -189,8 +189,12 @@
 .post-link {
     display: block;
     font-size: 24px;
+    color: black;
 }
 
+a.post-link, a:visited.post-link  {
+    color: black;
+}
 
 
 /**
