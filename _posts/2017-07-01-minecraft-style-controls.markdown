@@ -5,12 +5,13 @@ date:   2017-07-01 09:30:07
 categories: Unity
 ---
 To be explicit, the controls are:
+
  - WASD to move forwards, left, backwards and right.
  - Lock the mouse in the centre, and as the mouse moves, rotate the camera in the direction of the mouse movement.
 
 To deal with the mouse movement:
 
-```
+{% highlight c# %}
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,4 +45,4 @@ public class PlayerController3D : MonoBehaviour {
         }
     }
 }
-```
+{% endhighlight %}

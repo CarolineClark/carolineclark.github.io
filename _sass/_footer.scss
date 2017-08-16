@@ -1,3 +1,5 @@
+$footer_fade_duration: 0.4s;
+
 .footer {
     width: 100vw;
     height: 10vw;
@@ -13,10 +15,25 @@
     }
 }
 
+.footer-icon-background {
+    background-color: transparent;
+    -webkit-transition: background-color $footer_fade_duration;
+    transition: background-color $footer_fade_duration;
+    border-radius: 4vw;
+    width: 8vw;
+    height: 8vw;
+    display: flex;
+    margin: 0 1vw;
+}
+
+.footer-icon-background:hover {
+    background-color: #4d756d;
+}
+
 .footer-icon {
     width: 5vw;
     height: 5vw;
-    margin: 0 1vw;
+    margin: auto;
 
     @include media-query($on-palm) {
         width: 10vw;
@@ -27,10 +44,10 @@
 
 .footer-icon svg {
     fill: #4d756d;
-    -webkit-transition: fill $fade_in_duration;
-    transition: fill $fade_in_duration;
+    -webkit-transition: fill $footer_fade_duration;
+    transition: fill $footer_fade_duration;
 }
 
-.footer-icon:hover svg {
-    fill: #000;
+.footer-icon-background:hover .footer-icon svg {
+    fill: white;
 }

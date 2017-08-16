@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Modifying the SQLite DB in an Espresso test"
+title:  "Android: Modifying the SQLite DB in an Espresso test"
 date:   2017-06-10 09:30:07
 categories: Android
 ---
@@ -12,29 +12,36 @@ Firstly - it's important your Activity doesn't launch automatically at the start
 
 We can stop the activity launching automatically by setting the last param in the constructor `false` as below:
 
-```
+{% highlight java %}
 @Rule
-public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class, false, false);
-```
+public ActivityTestRule<MainActivity> mActivityTestRule = 
+    new ActivityTestRule<>(MainActivity.class, false, false);
+{% endhighlight %}
 
 Next, here is an example of a function to clear the database.
 
-```
+{% highlight java %}
 private final Context mContext = InstrumentationRegistry.getTargetContext();
 private final Class mDbHelperClass = YourDbHelper.class;
     
 public void dropDatabase() throws Exception {
-    SQLiteOpenHelper dbHelper = (SQLiteOpenHelper) mDbHelperClass.getConstructor(Context.class).newInstance(mContext);
-    dbHelper.getWritableDatabase().delete("YOUR_TABLE_NAME", null, null);
+    SQLiteOpenHelper dbHelper = (SQLiteOpenHelper) mDbHelperClass
+        .getConstructor(Context.class)
+        .newInstance(mContext);
+    dbHelper
+        .getWritableDatabase()
+        .delete("YOUR_TABLE_NAME", null, null);
 }
-```
+{% endhighlight %}
 
 Similarly, to insert data:
 
-```
+{% highlight java %}
 private void insertSingleTask(ContentValues testValues) throws Exception {
     SQLiteOpenHelper dbHelper =
-            (SQLiteOpenHelper) mDbHelperClass.getConstructor(Context.class).newInstance(mContext);
+            (SQLiteOpenHelper) mDbHelperClass
+                .getConstructor(Context.class)
+                .newInstance(mContext);
 
     SQLiteDatabase database = dbHelper.getWritableDatabase();
 
@@ -46,11 +53,11 @@ private void insertSingleTask(ContentValues testValues) throws Exception {
     assertNotEquals("Unable to insert into the database", -1, firstRowId);
     dbHelper.close();
 }
-```
+{% endhighlight %}
 
 If you want to use this in a test, you need to make your db changes first, and then call `launchActivity(null)` on your test rule:
 
-```
+{% highlight java %}
 @Test
 public void fabLaunchesAddTaskActivity() throws Exception {
     // Given
@@ -59,4 +66,4 @@ public void fabLaunchesAddTaskActivity() throws Exception {
 
     // Test your UI!
 }
-```
+{% endhighlight %}

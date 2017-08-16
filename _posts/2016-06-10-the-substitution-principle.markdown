@@ -6,13 +6,13 @@ categories: Java
 ---
 In Java you have inheritance. For any class, you can create a subclass which has all the same functionality, and then add new methods or overwrite functinality as you wish.
 
-Now, the Java compiler assumes that the subclass can the replace the original class in all instances. We can see this very clearly when we do something like:
+Now the Java compiler assumes that the subclass can the replace the original class in all instances. We can see this very clearly when we do something like:
 
-```
+{% highlight java %}
 Object obj;
 Sring s1 = new String("blah");
 obj = s1;
-```
+{% endhighlight %}
 
 The `String s1` is not a direct instance of the Object class, yet we were able to set the `Object obj` as a String.
 
@@ -22,7 +22,7 @@ It's not much of a stretch to say that whenever we use a class, we should be abl
 
 However this is not as obvious as it seems. The classic example for poorly done inheritance is the following:
 
-```
+{% highlight java %}
 class Rectangle {
     public int width;
     public int height;
@@ -50,15 +50,15 @@ class Square extends Rectangle {
         width = w;
     }
 }
-```
+{% endhighlight %}
 
-We have a Rectangle class, and we want to create a Square class. Since a Sqaure IS-A Rectangle, it feel natural to have Square class inherit from Rectangle.
+We have a Rectangle class, and we want to create a Square class. Since a Square is a Rectangle, it feel natural to have Square class inherit from Rectangle.
 
 However, notice we've overriden the functionality of the setHeight and setWidth functions. Now, setHeight on the Square instance overwrites both the height and width of the Square. A square is only a square if the height and width are equal.
 
 Now imagine we wrote a series of tests before on Rectangle. For example, one such test could be:
 
-```
+{% highlight java %}
 @Test
 public static ifWidth4AndHeight5_areaIs20 {
     Rectangle r = new Rectangle();
@@ -66,8 +66,10 @@ public static ifWidth4AndHeight5_areaIs20 {
     r.setHeight(5);
     assertEquals(r.width * r.height, 20);
 }
-```
+{% endhighlight %}
 
 This clearly doesn't work for our Square class. If we substitute the Square class into this example, the code will compile but the test will fail as the area of the Square will be 25. This could cause runtime errors.
 
-One of the core design principles of OOP addresses this. It's called the **Liskov's Substitution Principle**, which says any subclass should be able to replace its parent class in all cases.
+One of the core design principles of OOP addresses this. It's called the **Liskov's Substitution Principle**, which says any subclass should be able to replace its parent class in all cases. 
+
+Since this is not true for the Square and Rectangle example given, we have to conclude that in OOP, a Square is not a Rectangle.

@@ -1,94 +1,107 @@
 ---
 layout: post
-title:  "Erasure and its implications"
+title:  "Erasure in Java and its implications"
 date:   2016-06-24 09:30:07
 categories: Java
 ---
-## Erasure and its implications
 
-Erasure describes what happens to the generics at compile time. The generics are used during complication to check for type safety, and then are systematically removed from the compiled code.
+What happens to generics when they get compiled? It turns out they are converted into casts. (Which may feel quite odd, as we used generics as a way of avoiding casting!)
 
-```
-//In Collections, the generic type is erased and leaves the rawtype.
+Erasure is a fancy word for this process, from the idea that the generics themselves are erased.
+
+Here are some examples below of how the types are erased:
+
+{% highlight java %}
+// In Collections, the generic type is erased and leaves the rawtype.
 List<String> -> List
 
-//An unbounded generic is erased to the Object type
+// An unbounded generic is erased to the Object type
 T without bounds -> Object
 
-//An upper bounded wildcard is erased to the upper bound.
+// An upper bounded wildcard is erased to the upper bound.
 T extends Foo -> Foo
-```
+{% endhighlight %}
 
-To give the correct type information in the compiled code, the compiler then inserts *casts* and/or *bridge methods*.
+To give the correct type information in the compiled code, the compiler then inserts **casts** and/or **bridge methods**.
 
 Cast example:
 
-```
+{% highlight java %}
 List<String> list = new ArrayList<String>();
 list.add("Hi");
 String x = list.get(0);
-```
+{% endhighlight %}
 
 gets converted to
 
-```
+{% highlight java %}
 List list = new ArrayList();
 list.add("Hi");
 String x = (String) list.get(0);
-```
+{% endhighlight %}
+
+An example of a Bridge Method is at the bottom of this post, since it's not needed to understand the rest of the post.
 
 ### Implications of erasure
 
-The problems with erasure is at runtime, the compiler doesn't have full type information. Under the hood you get Collections of rawtypes and some cleverly placed casts. This mean if you need type information at runtime that you can't infer at build time doesn't compile. For example:
+Once your code gets compiled, your generics become collections of rawtypes and cleverly placed casts. The result is that some of your generics may be erased and not adequently represented, because there isn't a way of representing what you want. Thus, your code may have less information about your types than you think. 
 
-**Overloading**
+If you add a generic that is useless, your compiler will raise an error. The compiler is actually trying to be helpful, letting you know that generic type you added doesn't actually do anything.
+
+The following are some common examples of this.
+
+### Overloading
 
 If the generic type is the only difference in the method signature, then overloading doesn't work. This is because at compile time, the compiler will remove the generic type and thus the difference between the two methods.
 
 So the following two method declarations:
 
-```
+{% highlight java %}
 public void print(List<String> strings)
 public void print(List<int> ints)
-```
+{% endhighlight %}
 
 will both be erased to
 
-```
+{% highlight java %}
 public void print(List strings)
 public void print(List ints)
-```
+{% endhighlight %}
 
 and you end up with two identical method declarations.
 
-**instanceof**
-
+### instanceof
 If you do:
 
-```
+{% highlight java %}
 obj instanceof InstanceOfExample<String>
-```
+{% endhighlight %}
 
-You'll get the compile error "Illegal generic type for instanceof". If this was allowed, then all generic types would compile to
+You'll get the compile error `Illegal generic type for instanceof`. If this was allowed, then all generic types would compile to
 
-```
+{% highlight java %}
 obj instanceof InstanceOfExample
-```
+{% endhighlight %}
 
-which obviously isn't allowed.
+and you would not be able to distinguish between them.
 
-**Exceptions**
-```
+### Exceptions
+{% highlight java %}
 public class UncompilableException<T> extends Exception
-```
+{% endhighlight %}
 
-will give you "Generic class may not extend java.throwable.lang"
+will give you `Generic class may not extend java.throwable.lang`. Similarly to above, this is compiled to:
+{% highlight java %}
+public class UncompilableException extends Exception
+{% endhighlight %}
 
-**Static variables**
+and thus the generic types cannot be distinguished from each other.
 
-For example, if this was allowed:
+### Static variables
 
-```
+This isn't a product of Erasure, but this is another example where generics can't be used:
+
+{% highlight java %}
 public class MobileDevice<T> {
     private static T os;
 }
@@ -96,28 +109,28 @@ public class MobileDevice<T> {
 MobileDevice<Smartphone> phone = new MobileDevice<>();
 MobileDevice<Pager> pager = new MobileDevice<>();
 MobileDevice<TabletPC> pc = new MobileDevice<>();
-```
+{% endhighlight %}
 
-Then what is the type of os?
+Here, `os` is all three of Smartphone, Pager, and TabletPC type, which is clearly nonsense.
 
 ### Performance issues
-All generics are erased to some sort of Object or Interface. This means you cannot use primitive type such as an int for generics. Instead you would have to use Integer. So, you cannot do:
+All generics are erased to some sort of Object or Interface. This means you cannot use primitive type such as an `int` for generics. Instead you would have to use Integer. So, you cannot do:
 
-```
+{% highlight java %}
 Pair<int, char> p = new Pair<>(8, 'a');
-```
+{% endhighlight %}
 
 It would have to be
-```
+{% highlight java %}
 Pair<Integer, Character> p = new Pair<>(8, 'a');
-```
+{% endhighlight %}
 
 These Objects require more memory than the primitive types, and thus impact performance in our programs.
 
 ### Side note - Bridge methods
 These are used when we extend a generic class or interface. The example below has been shamelessly ripped from the javadocs website.
 
-```
+{% highlight java %}
 public class Node<T> {
 
     public T data;
@@ -142,11 +155,11 @@ public class ChildNode extends Node<Integer> {
         super.setData(data);
     }
 }
-```
+{% endhighlight %}
 
 After type erasure it looks more like this:
 
-```
+{% highlight java %}
 public class Node {
 
     // T has been cast to Object
@@ -175,13 +188,13 @@ public class ChildNode extends Node {
         super.setData(data);
     }
 }
-```
+{% endhighlight %}
 
-Due to the removal of the generic types, the ChildNode setData method signature does not match the parent class's signature. This means, without further help from the compiler, the method would not be overloaded correctly.
+Due to the removal of the generic types, the ChildNode setData method signature does not match the parent class's signature. Without further help from the compiler, the method would not be overloaded.
 
 A bridge method is created by the compiler to get around this problem. It copies the same method signature from the parent class, and then casts the arguments.
 
-```
+{% highlight java %}
 class MyNode extends Node {
 
     // Bridge method generated by the compiler
@@ -197,4 +210,4 @@ class MyNode extends Node {
 
     // ...
 }
-```
+{% endhighlight %}

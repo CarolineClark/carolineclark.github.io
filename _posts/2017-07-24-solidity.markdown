@@ -5,21 +5,29 @@ date:   2017-07-24 09:30:07
 categories: Solidity
 ---
 
-This weekend, I got a first taste for what goes on under the hood with Etherium blockchains and Solidity smart contracts. This is a run down of the things I learnt.
+>This weekend, I got my first taste of Etherium blockchains and Solidity smart contracts. This is a run down of the things I learnt.
 
 Since the Ethereum network is decentralised, no single company pays for the running of computations on the network. Instead, the system is more like a marketplace, with many individuals accessing the transactions coming in and prioritising them depending on how much money they will make.
+
 When I want to run a computation on the blockchain (e.g. send money to someone, and thus write to the ledger), I have to set the amount I am willing to pay for that transaction to happen.
-When I request for this transaction to happen, the computational cost is assessed to get a rough estimate of how much it will take to complete the transaction. Some operations can be calculated exactly (e.g. hashing data), others depend on the state of the blockchain and are less transparent.
+
+When I request for this transaction to happen, the computational cost is assessed to get a rough estimate of how much it will take to complete the transaction. Some operations can be calculated exactly (e.g. hashing data), others depend on state blockchain and are less transparent. (for example, if you need to iterate through an array, the number of operations depend on the size of your array).
+
 If your offered fee is less than the rough estimate, no one will pick up the transaction. After all, the operator would lose money from the electricity cost of running your calculation. You have to try again and set your transaction fee to be higher.
+
 If the fee you offered is above the amount to run it, then your transaction will be queued up, and you will have to wait until it is processed. The higher the fee, the more likely someone will process it.
+
 A dangerous scenario is if your code is run, and your computation takes more work than the operator expected. The operator will stop the transaction at the point that it goes over the estimate, take their fee (to pay for the work they did), and the transaction will be marked as a failed transaction in the blockchain. As best as they can, they will revert the changes they made, but it is possible that your smart contract could be left in an inconsistant state.
 
 Typically you hear "reading from the blockchain is free, writing costs money." (A readonly function is marked by `constant`.) However, as we've seen, the costs don't come specifically from setting the state, but from the computation complexity.
-Normally you would call your constant function on your own machine, querying a local copy of the blockchain (e.g. when displaying some data on your web application). This means you didn't have to pay for someone else's computer to do the work for you. However, if this constant function is called during a transaction, then you will have to pay for the computation complexity.
+
+Normally you would call your constant function on your own machine, querying a local copy of the blockchain (e.g. when displaying some data on your web application). This means you don't have to pay (via ethereum) for someone else's computer to do the work for you, since you did the work yourself. However, if this constant function is called during a transaction, then you will have to pay for the computation complexity.
+
+Summary:
 
 - Changing the state of your smart contract always costs money, as this involves writing to the blockchain. This is called a transaction.
 - You cannot get the return value of a transaction. The transaction is done asynchronously, so to get the data, you have to hook up a callback using an Event.
-- Be careful when iterating over growing data structures. If you are iterating through a list, particularly one that you expect to grow over time, the number of operations will be O(n), and the cost for running these functions will go up as the list grows. A better solution is to use a mapping (HashMap) to access data, which is always O(1).
+- Be careful when iterating over growing data structures. If you are iterating through a list, particularly one that you expect to grow over time, the number of operations will be `O(n)`, and the cost for running these functions will go up as the list grows. A better solution is to use a mapping (`HashMap`) to access data, which is always `O(1)`.
 - Definitely don't use recursion.
 
 
