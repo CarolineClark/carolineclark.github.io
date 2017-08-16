@@ -1,0 +1,24 @@
+.footer {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    margin: 0px;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-icon {
+    width: 5vw;
+    height: 5vw;
+    margin: 0 1vw;
+
+    @include media-query($on-palm) {
+        width: 10vw;
+        height: 10vw;
+        margin: 0 1.5vw 6vw 1.5vw;
+    }
+}
+
+.footer-icon svg {
+    fill: #4d756d;
+}
