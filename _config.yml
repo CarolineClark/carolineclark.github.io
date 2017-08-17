@@ -7,3 +7,4 @@ github_username:  carolineclark
 
 # Build settings
 markdown: kramdown
+exclude: [vendor]
