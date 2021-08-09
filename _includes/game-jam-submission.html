@@ -6,26 +6,32 @@
         <div class="gamejam-title">Title: {{ include.title }}</div>
     {% endif %}
 
-    <div class="gamejam-theme">Theme: {{ include.theme }}</div>
-    <div class="gamejam-location">Game Jam: {{ include.gamejam }}</div>
+    {% if include.theme %}
+        <div class="gamejam-theme">Theme: {{ include.theme }}</div>
+    {% endif %}
+    {% if include.gamejam %}
+        <div class="gamejam-location">Game Jam: {{ include.gamejam }}</div>
+    {% endif %}
     {% if include.github %}
-    <div><a href={{ include.github }}>Source code</a></div>
+        <div><a href={{ include.github }}>Source code</a></div>
     {% endif %}
 
     {% if include.youtube %}
-    <div class="video-container">
-        <iframe width="560" height="315" src={{ include.youtube }} frameborder="0" allowfullscreen></iframe>
-    </div>
+        <div class="video-container">
+            <iframe width="560" height="315" src={{ include.youtube }} frameborder="0" allowfullscreen></iframe>
+        </div>
     {% else if include.image %}
-    <img class="game-jam-image" src={{ include.image }}/>
+        <img class="game-jam-image" src={{ include.image }}/>
     {% endif %}
 
-    <div class="gamejam-credits-title">Credits:</div>
+    {% if include.credits %}
+        <div class="gamejam-credits-title">Credits:</div>
 
-    {% assign people = include.credits | split: '|' %}
-    {% for person in people %}
-        {% assign props = person | split: ','' %}
-        <a href={{ props[1] }} class="gamejam-credits">{{ props[0] }}</a>
-        <br/>
-    {% endfor %}
+        {% assign people = include.credits | split: '|' %}
+        {% for person in people %}
+            {% assign props = person | split: ','' %}
+            <a href={{ props[1] }} class="gamejam-credits">{{ props[0] }}</a>
+            <br/>
+        {% endfor %}
+    {% endif %}
 </div>
